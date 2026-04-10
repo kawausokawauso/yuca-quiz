@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💜语擦女人格测试</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:0;background:linear-gradient(180deg,#fdf4ff,#f3e8ff);color:#4b2e5e}
+    .container{max-width:760px;margin:0 auto;padding:24px}
+    .card{background:rgba(255,255,255,.95);border-radius:20px;padding:24px;box-shadow:0 8px 24px rgba(124,92,255,.12);margin-bottom:20px}
+    h1,h2{text-align:center}.desc{line-height:1.8}.hidden{display:none}
+    .option{display:block;margin:10px 0;padding:14px;border-radius:12px;background:#faf5ff;cursor:pointer}
+    .option:hover{background:#f3e8ff}
+    button{width:100%;padding:14px;border:none;border-radius:14px;background:#c084fc;color:#fff;font-size:16px;cursor:pointer;margin-top:16px}
+    #resultText{white-space:pre-line;line-height:1.9}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div id="home" class="card">
+    <h1>💜 语擦女人格测试 💜</h1>
+    <p class="desc">本测试中提到的对皮就是对皮，不是亲友，不是与擦一下的网友，没有对皮或者只搞cb与擦的话，你可以选择不回答这个测试，其余自由心证，仅供娱乐</p>
+    <button onclick="startQuiz()">开始测试 🎀</button>
+  </div>
+  <div id="quiz" class="hidden"></div>
+  <div id="result" class="card hidden">
+    <h2>✨ 你的结果 ✨</h2>
+    <div id="resultText"></div>
+    <button onclick="goHome()">回到问卷首页 🏠</button>
+  </div>
+</div>
+<script>
+const questions=[
+{t:'黑白认识的对皮想跟你加qq，你心里：',o:[['a','有点期待了，已想好面基当天穿搭'],['b','你是不是要恩将仇报？'],['c','终于可以让你知道我的扣扣空间有多好刷了'],['d','不太合适吧我有对象了']]},
+{t:'对皮深夜邀请你一起听，你心里：',o:[['a','刷时长，趁机看看距离多远'],['b','妹妹，我不是闲人，我要上班'],['c','展现我歌单品味的时间到了'],['d','不太合适吧我有对象了']]},
+{t:'对皮邀请你一起打游戏，你考虑的众多因素中最重要的是？',o:[['a','是只叫了我吗？'],['b','这游戏要先花钱买吗？要不要点卡？是不是史低？'],['c','游戏ip是不是我雷的作品？'],['d','先问下我对象要不要一起打']]},
+{t:'你在A坑遇到的对皮忽然和你说，对你在B坑吃的产品有兴趣，想擦你相方试试，你心里：',o:[['a','你有兴趣的到底是产品还是我'],['b','可是我在B坑已经有固定对皮了'],['c','安利家产的时刻到了！'],['d','想擦就擦反正只是对皮而已']]},
+{t:'对皮问你要收件地址，想给你点奶茶/外卖/送礼物，你会：',o:[['a','趁机和对方交换地址'],['b','我自己点更便宜'],['c','不想欠人情，会回赠价格差不多的东西'],['d','不太合适吧我有对象了']]},
+{t:'你找代发在泡群下了单，有人留了一个角色马，你去看发现该角色马已经15级，你：',o:[['a','立刻向亲友打听此人是否有瓜'],['b','不可能，我根本没空文/不想文'],['c','既然如此先翻翻动态看擦得如何'],['d','无所谓，反正我是小马']]},
+{t:'你找代发在泡群下了单，有人留了。结果你们俩只对了几句，你就被日抛了，你：',o:[['a','只可惜了我的极品一级绿马！'],['b','不可能，都说了我根本没空文/不想文'],['c','没品的东西浪费我的文案，再下一单'],['d','无所谓，反正同时还聊着好几个']]},
+{t:'七夕快到了，你：',o:[['a','已经想好要送对皮什么了'],['b','咋了，又不放假'],['c','已经想好要给家产产什么粮了'],['d','当然是和对象过']]},
+{t:'你认为语擦是：',o:[['a','赛博假面舞会，认识有趣灵魂的机会'],['b','没有必要赋予它任何定义，just擦it'],['c','一起写产品的文字游戏'],['d','网络过家家，且不局限于性缘关系']]}
+];
+const results={
+1:'结果一 网恋科女同属语擦女种\n在互联网的边缘呼唤爱。这没什么值得嘲笑的，去相亲角和热拉撞大运的异性恋/同性恋们并不比你更高贵，只是语擦女的观念差异比猫和狗的生殖隔离更大。祝你遇到和你一样心怀希望的那一个，祝你好运。',
+2:'结果二 等我下班之后再回\n工作让你在和对皮的每一次对话中率先睡着，工作让你没有心思在意对皮的秋波，工作让你发现钱如此难挣，工作让你面对对话框大脑一片空白。工作把你害惨了。注意身体健康，祝你好运。',
+3:'结果三 我是来这里语擦的\n拥有产品理解和角色理解非常契合的对皮是世界上最幸福的事，虽然被对皮告白不至于天塌了，但我是来这里语擦的啊！你不是吗！？你不欣赏我精心搭配的头像、名片、背景、挂件、气泡、签名，你就欣赏我了？\n祝你好胃口，祝你好运。',
+4:'结果四 非单语擦人\n你对象不介意，你对皮也不介意就行。小心点，祝你好运。',
+5:'结果五 普通与擦女\n你既没有觉得在语擦里遇到真爱有什么奇怪，也没有格外期待自己在语擦中遇到真爱。真遇到合适的就谈谈，没遇到也无所谓。有好吃的对皮一起搞搞家产，也很平淡幸福。祝你擦得开心，祝你好运。'
+};
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5)}
+function startQuiz(){document.getElementById('home').classList.add('hidden');const q=document.getElementById('quiz');q.classList.remove('hidden');q.innerHTML='';questions.forEach((it,i)=>{let html=`<div class="card"><h3>${i+1}. ${it.t}</h3>`;shuffle(it.o).forEach(op=>html+=`<label class="option"><input type="radio" name="q${i}" value="${op[0]}"> ${op[1]}</label>`);html+='</div>';q.innerHTML+=html});q.innerHTML+='<button onclick="submitQuiz()">提交结果 💌</button>'}
+function submitQuiz(){let ans=[];for(let i=0;i<questions.length;i++){let s=document.querySelector(`input[name="q${i}"]:checked`);if(!s){alert('还有题目没做完哦～');return}ans.push(s.value)}
+let hasD=[0,1,2,4,7].some(i=>ans[i]==='d');
+let love=[0,1,4,7].filter(i=>ans[i]==='a').length>=2||ans.filter(x=>x==='a').length>5;
+let prod=[3,5,6,7,8].filter(i=>ans[i]==='c').length>=3;
+let text='';
+if(hasD) text=results[4];
+else if(prod) text=results[3];
+else if(ans[1]==='b') text=results[2];
+else if(love) text=results[1];
+else text=results[5];
+document.getElementById('quiz').classList.add('hidden');document.getElementById('result').classList.remove('hidden');document.getElementById('resultText').innerText=text;}
+function goHome(){document.getElementById('result').classList.add('hidden');document.getElementById('quiz').classList.add('hidden');document.getElementById('home').classList.remove('hidden')}
+</script>
+</body>
+</html>
